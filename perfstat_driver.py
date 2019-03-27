@@ -57,7 +57,7 @@ if not os.path.exists(output_dir)==True:
 try:
    output = client.run_command('virsh list')
 except Exception as e:
-   print e
+   print (e)
 
 for host, host_output in output.items():
     vm_list = []
@@ -68,12 +68,12 @@ for host, host_output in output.items():
                 node_name = line.split()[1]
 	        vm_list.append(node_name.encode('ascii','ignore'))
         count +=1 
-    print vm_list
+    print (vm_list)
     file_list = []
     for vm in vm_list:
         outfile="{}_{}_perfstat.temp".format(vm,exp_name)
         file_list.append(outfile)
-   
+    print ("[Debug] copy list:{}".format(file_list))
     copy_remote_to_local(host, file_list, output_dir)
     for file in file_list:
         input_file = os.path.join(os.getcwd(),output_dir,file)
