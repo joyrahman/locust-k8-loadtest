@@ -11,10 +11,10 @@ import os
 from sftp import copy_remote_to_local
 from post_process_perfstat import post_process_perfstat
 exp_name = sys.argv[1]
-total_duration = int(sys.argv[2])
+total_duration = int(sys.argv[2]) #given in seconds
 output_dir = sys.argv[3]
 
-total_duration *=1000
+total_duration_in_ms = total_duration * 1000 #scale to ms
 #print ("debug>>", sys.argv)
 
 hosts = ['kubenode-1','kubenode-2','kubenode-3','kubenode-4']
@@ -23,13 +23,13 @@ user="joy"
 client = ParallelSSHClient(hosts,user)
 
 try:
-   output = client.run_command('sh ./perfstat_node/perfstat.sh {} {}'.format(exp_name,total_duration))
+   output = client.run_command('sh ./perfstat_node/perfstat.sh {} {}'.format(exp_name,total_duration_in_ms))
    #print ("debug>> executed")
 except Exception as e:
    print e
 
 
-time.sleep(total_duration//1000)
+time.sleep(total_duration) 
 #time.sleep(total_duration)
 
 #print ("debug>> wakeup")

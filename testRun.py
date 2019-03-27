@@ -117,7 +117,7 @@ def createRawCSVs(tStampList, podNmList, testDirPath, podMetDict):
                 rowDict[pair[0]] = pair[1]
             writer.writerow(rowDict)
 
-    with open(os.path.join(testDirPath, 'container-netR5sRaw.csv'), mode='w') as netW_file:
+    with open(os.path.join(testDirPath, 'container-netW5sRaw.csv'), mode='w') as netW_file:
         fieldnms = ['Pod_Name']
         fieldnms.extend(tStampList)
         writer = csv.DictWriter(netW_file, fieldnames=fieldnms)
@@ -236,6 +236,27 @@ def main():
 
         # Get time-stamp before running test
         print("Test %s start\n" % exp_Nm)
+
+        # TODO: add perfstat shell cmd in 
+        # Exec perfstat using params passed in through testParam file
+        # #format: python <script_name> exp_name total_duration output_dir
+
+        perfstatCmdString = "python perfstat_driver.py {} {} {}".format(exp_Nm,runtime,testDirPath)
+
+        perfstatArgs = shlex.split(perfstatCmdString)
+        perfstatResultFNm = testDirPath + "/PerfstatLog.txt"
+        with open(perfstatResultFNm, 'w+') as perfstat_f:
+            p1 = subprocess.call(perfstatArgs, stdout=perfstat_f, stderr=perfstat_f, shell=False)
+        
+        # Exec vmstat using params passed
+        vmstatCmdString = "python vmstat_driver.py {} {} {}".format(exp_Nm,runtime,testDirPath)
+
+        vmstatArgs = shlex.split(vmstatCmdString)
+        vmstatResultFNm = testDirPath + "/vmstatLog.txt"
+        with open(perfstatResultFNm, 'w+') as vmstat_f:
+            p2 = subprocess.call(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
+
+
         startT = time.time() 
         
         # Exec locust command, exporting to CSV file & using params passed in through testParam file
