@@ -253,7 +253,7 @@ def main():
 
         vmstatArgs = shlex.split(vmstatCmdString)
         vmstatResultFNm = testDirPath + "/vmstatLog.txt"
-        with open(perfstatResultFNm, 'w+') as vmstat_f:
+        with open(vmstatResultFNm, 'w+') as vmstat_f:
             p2 = subprocess.call(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
 
 

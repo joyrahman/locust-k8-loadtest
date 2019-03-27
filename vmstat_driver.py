@@ -9,7 +9,7 @@ from gevent import joinall
 import time
 import os
 from vmstat_sftp import copy_remote_to_local
-from post_process_perfstat import post_process_perfstat
+#from post_process_perfstat import post_process_perfstat
 
 exp_name = sys.argv[1]
 total_duration = int(sys.argv[2])
@@ -54,8 +54,10 @@ if not os.path.exists(output_dir)==True:
     os.makedirs(output_dir)
 
 for vm in hosts:
-    file_name = "{}_vmfile.tmp".format(vm)
-    copy_remote_to_local(vm,file_name, output_dir)
+    infile_name = "{}_vmfile.tmp".format(exp_name)
+    outfile_name = "{}_vmfile.tmp".format(vm)
+    print("trying to copy: {} {} {}".format(vm,infile_name,outfile_name,output_dir))
+    copy_remote_to_local(vm,infile_name, outfile_name, output_dir)
 
 '''
 try:
