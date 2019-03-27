@@ -1,0 +1,5 @@
+"Name","# requests","50%","66%","75%","80%","90%","95%","98%","99%","100%"
+"/",0,"N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"
+"/api/user/login",0,"N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"
+"/api/user/uniqueid",0,"N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"
+"Total",0,"N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"

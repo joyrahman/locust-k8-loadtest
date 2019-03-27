@@ -1,0 +1,5 @@
+"Method","Name","# requests","# failures","Median response time","Average response time","Min response time","Max response time","Average Content Size","Requests/s"
+"GET","/",0,32806,0,0,0,0,0,0.00
+"POST","/api/user/login",0,32967,0,0,0,0,0,0.00
+"GET","/api/user/uniqueid",0,32805,0,0,0,0,0,0.00
+"None","Total",0,98578,0,0,0,0,0,0.00
