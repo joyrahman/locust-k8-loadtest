@@ -8,7 +8,7 @@ def process_vmstat(vmfile,start_pos,end_pos,out_file):
     #containers = {'carts':0,'carts-db':0,'front-end':0,'orders':0}
     containers = {}
     dictionary = {}
-    hostname = vmfile.split(_)[0] #kb-w12
+    hostname = vmfile.split("_")[0] #kb-w12
     vm_cpu_average=0
 
     # do processing of the vmstat file
