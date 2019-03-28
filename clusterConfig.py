@@ -44,7 +44,7 @@ def clusterSetup(api_instance, configs):
 
     # TODO: place interference deployment in correct zone w/ correct count
     namespace=configs.testNS 
-    include_uninitialized = true # bool | If true, partially initialized resources are included in the response. (optional)
+    include_uninitialized = True # bool | If true, partially initialized resources are included in the response. (optional)
     pretty = 'pretty_example' # str | If 'true', then the output is pretty printed. (optional)
     dry_run = 'dry_run_example' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
     body = create_batch_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
