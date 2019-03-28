@@ -13,6 +13,7 @@ from kubernetes import client, config
 import json
 import csv
 import yaml
+import datetime
 from clusterConfig import clusterSetup
 from clusterConfig import deletebatchJobs 
 
@@ -259,7 +260,7 @@ def main():
         with open(vmstatResultFNm, 'w+') as vmstat_f:
             p2 = subprocess.call(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
 
-
+        print("[debug] start time {}".format(datetime.datetime.now()))
         startT = time.time() 
         
         # Exec locust command, exporting to CSV file & using params passed in through testParam file
@@ -271,8 +272,10 @@ def main():
         stopT = time.time()
         print ("[debug] test is completed. post processing")
 
+
         # delete the batch jobs 
-        deletebatchJobs(batch_v1beta1,clusterConfs)
+        if clusterConfs.interferenceLvl > 0:
+            deletebatchJobs(batch_v1beta1,clusterConfs)
 
         moveLocustResults(testDirPath)
         # TODO: Exec kubectl port forward to prometheus pod ?? (currently, command is being run in separate terminal window)
@@ -282,7 +285,7 @@ def main():
         promQueries(startT, stopT, testDirPath)
         
         time.sleep(60)
-
+        print("[debug] end time {}".format(datetime.datetime.now()))
         print ("[debug] End of Test")
         #
 
