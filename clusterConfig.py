@@ -64,10 +64,11 @@ def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="me
         with open('stream.yaml','r') as f:
             body = yaml.load(f) 
     if body != None:    
-        body['spec']['parallelism'] = cntParallelism
-        body['spec']['completions'] = cntCompletions
-        body['spec']['parallelism'] = cntParallelism
-        body['spec']['template']['spec']['nodeSelector']['color'] = zone
+        body.spec.parallelism = cntParallelism
+        body.spec.completions = cntCompletions
+        zoneSelector  = {}
+        zoneSelector['color'] = zone
+        body.spec.template.spec.node_selector = zoneSelector
 
 
     return body 
