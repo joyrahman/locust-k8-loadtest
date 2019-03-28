@@ -59,12 +59,13 @@ if not os.path.exists(output_dir)==True:
 
 vm_list = defaultdict(list)
 vm_list['kubenode-1'] = ["kb-w11","kb-w12","kb-w13","kb-w14"]
-vm_list['kubenode-2'] = ["kb-w11","kb-w12","kb-w13","kb-w14"]
-vm_list['kubenode-3'] = ["kb-w11","kb-w12","kb-w13","kb-w14"]
-vm_list['kubenode-4'] = ["kb-w11","kb-w12","kb-w13","kb-w14"]
+vm_list['kubenode-2'] = ["kb-w21","kb-w22","kb-w23","kb-w24"]
+vm_list['kubenode-3'] = ["kb-w31","kb-w32","kb-w33","kb-w34"]
+vm_list['kubenode-4'] = ["kb-w41","kb-w42","kb-w43","kb-w44"]
 
 file_list = []
-for node in hosts:
+list_of_kvm = ['kubenode-1','kubenode-2','kubenode-3','kubenode-4']
+for node in list_of_kvm:
     list_of_vms = vm_list[node]
     fetch_files = []
     for vm in list_of_vms:
