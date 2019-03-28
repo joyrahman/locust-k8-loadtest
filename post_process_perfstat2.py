@@ -10,7 +10,7 @@ def write_to_csv(dataframe,header,output_file):
     df.to_csv(output_file+".csv",index=False)
 
 def clean_up_file(infile):
-    outfile = fileName.split('.')[0]+".swp"
+    outfile = infile.split('.')[0]+".swp"
 
     with open(infile,'r') as f_in, open(outfile,'w') as f_out:
         for line in f_in:
