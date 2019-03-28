@@ -63,6 +63,7 @@ def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="me
     if jobType == "memory" or "":
         with open('stream.yaml','r') as f:
             body = yaml.load(f) 
+            pprint(body)
     if body != None:    
         body.spec.parallelism = cntParallelism
         body.spec.completions = cntCompletions
