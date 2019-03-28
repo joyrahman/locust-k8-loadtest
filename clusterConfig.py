@@ -3,7 +3,7 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import time
 
-def clusterSetup(api_instance, configs):
+def clusterSetup(api_instance, batch_api, configs):
     for deployment, replicaCnt in configs.workflowDeplList.iteritems():
         # setup correct pod replica count for workflow deployments 
         try: 
@@ -50,7 +50,7 @@ def clusterSetup(api_instance, configs):
     dry_run = 'dry_run_example' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
     body = load_yaml_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
     try: 
-        api_response = api_instance.create_namespaced_job(namespace=namespace, body=body, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
+        api_response = batch_api.create_namespaced_job(namespace=namespace, body=body, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
