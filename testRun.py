@@ -34,7 +34,6 @@ class podDataCollection(object):
 class clusterInfo(object):
     testNS = "default"
     workflowDeplList = {"cart": 0, "shipping": 0, "catalogue": 0}
-    iFerenceDepNm = ""
     interferenceZone = ""
     interferenceLvl = 0
     interferenceCompletionCount = 0
@@ -214,7 +213,7 @@ def main():
         clientCnt = lnArgs[3]
         hatchRate = lnArgs[2]
         clusterConfs.interferenceZone = lnArgs[4]
-        clusterConfs.interferenceLvl = lnArgs[5]
+        clusterConfs.interferenceLvl = int(lnArgs[5])
         clusterConfs.workflowDeplList['cart'] = lnArgs[6]
         clusterConfs.workflowDeplList['catalogue'] = lnArgs[7]
         clusterConfs.workflowDeplList['shipping'] = lnArgs[8]
