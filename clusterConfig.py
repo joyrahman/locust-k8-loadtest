@@ -74,7 +74,7 @@ def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="me
         '''
         body['spec']['parallelism'] = cntParallelism
         body['spec']['completions'] = cntCompletions
-        body['spec']['template']['spec']['nodeSelector'] = zone 
+        body['spec']['template']['spec']['nodeSelector']['color'] = zone 
         
 
     return body 
