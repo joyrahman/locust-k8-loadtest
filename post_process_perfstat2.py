@@ -37,6 +37,9 @@ def post_process_perfstat(filename):
             #break if end
             if len(lines_gen)==0:
                 break
+            # debug
+            print("_________")
+            print(lines_gen)
             # keep reading 3 lines at a time
             record = []
             
