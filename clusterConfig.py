@@ -60,6 +60,7 @@ def clusterSetup(api_instance, configs):
     
 def create_batch_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="memory"):
     body = client.V1Job() # V1Job | 
+    print(body)
     body.kind = "Job"
     body.spec.parallelism = cntParallelism
     body.spec.completions = cntCompletions
