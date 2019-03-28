@@ -13,7 +13,7 @@ def process_vmstat(vmfile,start_pos,end_pos,out_file):
 
     # do processing of the vmstat file
 
-    f_out = open(out_file,'a')
+    f_out = open(out_file,'w')
 
     with open(vmfile,'r') as f1:
         #field12 for user cpu
@@ -21,7 +21,7 @@ def process_vmstat(vmfile,start_pos,end_pos,out_file):
         count = 0
         #escape = 0
         for line in f1:
-            print("debug:{}".format(line))
+            #print("debug:{}".format(line))
 
             if ("procs" in line) or ("swpd" in line):
                 pass
