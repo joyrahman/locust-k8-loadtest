@@ -69,13 +69,15 @@ def main():
         os.makedirs(output_dir)
 
     for vm in hosts:
-        infile_name = "{}_vmfile.tmp".format(exp_name)
-        outfile_name = "{}_vmfile.tmp".format(vm)
-        print("trying to copy: {} {} {}".format(vm,infile_name,outfile_name,output_dir))
-        copy_remote_to_local(vm,infile_name, outfile_name, output_dir)
+        src_file_name = "{}_vmfile.tmp".format(exp_name)
+        dst_file_name = "{}_vmfile.tmp".format(vm)
+        print("trying to copy: {} {} {}".format(vm,src_file_name,dst_file_name,output_dir))
+        copy_remote_to_local(vm,src_file_name, dst_file_name, output_dir)
         #post_process_outfile
-        post_process_outfile = os.path.join(output_dir,"{}_vmfile.csv".format(vm))
-        process_vmstat(outfile_name,start_position,end_position, post_process_outfile)
+        output_file = os.path.join(output_dir,"{}_vmfile.csv".format(vm))
+        input_file = os.path.join(output_dir,"{}_vmfile.tmp".format(vm))
+        printf("debug: process_vmstat {} {} {} {}".format(input_file,start_position,end_position,output_file))
+        process_vmstat(input_file,start_position,end_position, output_file)
     #call the post processing here
 
 
