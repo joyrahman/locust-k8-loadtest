@@ -29,13 +29,13 @@ connections = [125,250,500,1000,2000,4000]
 #rate = max(connections)//4
 
 
-
 # variables - zone, interference_level, connection
 with open(output_file,'w' )as f:
     for zone in zones:
         for i_level in interference_level:
             for con in connections:
                 rate = con//4
+
                 today = date.today()
                 config = "{}:{}:{}".format(cart_pod,catalogue_pod,shipping_pod)
                 date_prefix = today.strftime("%b%d")

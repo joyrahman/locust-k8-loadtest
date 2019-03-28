@@ -3,6 +3,7 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import time
 
+
 def deletebatchJobs(batch_api,configs):
     name = configs.interferenceType
     namespace = configs.testNS
@@ -115,10 +116,3 @@ def create_batch_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType=
     body.spec.template.spec.node_selector = zoneSelector
 
     return body
-
-
-
-
-
-    
-

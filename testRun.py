@@ -201,6 +201,7 @@ def main():
     config.load_kube_config()
     extensions_v1beta1 = client.ExtensionsV1beta1Api()
     batch_v1beta1 = client.BatchV1Api()
+
     clusterConfs = clusterInfo()
    
    # -------- Main testing loop Start ----------
@@ -261,6 +262,7 @@ def main():
             p2 = subprocess.call(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
 
         print("[debug] start time {}".format(datetime.datetime.now()))
+
         startT = time.time() 
         
         # Exec locust command, exporting to CSV file & using params passed in through testParam file
@@ -287,7 +289,7 @@ def main():
         time.sleep(60)
         print("[debug] end time {}".format(datetime.datetime.now()))
         print ("[debug] End of Test")
-        #
+
 
 main()
 

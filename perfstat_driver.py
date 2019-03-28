@@ -16,6 +16,7 @@ total_duration = int(sys.argv[2]) #given in seconds
 output_dir = sys.argv[3]
 
 total_duration_in_ms = total_duration * 1000 #scale to ms
+
 #print ("debug>>", sys.argv)
 
 hosts = ['kubenode-1','kubenode-2','kubenode-3','kubenode-4']
@@ -31,7 +32,7 @@ except Exception as e:
 
 
 time.sleep(total_duration) 
-#time.sleep(total_duration)
+
 
 #print ("debug>> wakeup")
 '''
@@ -56,7 +57,6 @@ if not os.path.exists(output_dir)==True:
     os.makedirs(output_dir)
 
 
-
 vm_list = defaultdict(list)
 vm_list['kubenode-1'] = ["kb-w11","kb-w12","kb-w13","kb-w14"]
 vm_list['kubenode-2'] = ["kb-w21","kb-w22","kb-w23","kb-w24"]
@@ -76,6 +76,4 @@ for node in list_of_kvm:
 for file in file_list:
     input_file = os.path.join(os.getcwd(),output_dir,file)
     post_process_perfstat(input_file)
-
-
 

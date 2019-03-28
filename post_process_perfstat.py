@@ -3,6 +3,7 @@ import sys
 import pandas as pd
 import warnings
 import os
+
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 
 
@@ -30,6 +31,7 @@ def post_process_perfstat(filename):
     clean_up_file(filename)
     df = []
     N = 3
+
     output_file = filename.split('.temp')[0] #ommitting the temp part of the input file
     hostname = filename.split('/')[-1].split('_')[0]  #hostname
     #print("filename",filename) 
