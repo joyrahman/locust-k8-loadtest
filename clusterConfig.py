@@ -65,12 +65,17 @@ def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="me
             body = yaml.load(f) 
             pprint(body)
     if body != None:    
+        '''
         body.spec.parallelism = cntParallelism
         body.spec.completions = cntCompletions
         zoneSelector  = {}
         zoneSelector['color'] = zone
         body.spec.template.spec.node_selector = zoneSelector
-
+        '''
+        body['spec']['parallelism'] = cntParallelism
+        body['spec']['completions'] = cntCompletions
+        body['spec']['template']['spec']['nodeSelector'] = zone 
+        
 
     return body 
 
