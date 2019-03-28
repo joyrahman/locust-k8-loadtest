@@ -3,6 +3,18 @@ from kubernetes.client.rest import ApiException
 from pprint import pprint
 import time
 
+def deletebatchJobs(batch_api,configs):
+    name = configs.interferenceType
+    namespace = configs.testNS
+
+    try: 
+        api_response = batch_api.delete_namespaced_job(name, namespace, pretty='true', grace_period_seconds=2)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BatchV1Api->delete_namespaced_job: %s\n" % e)
+
+
+
 def clusterSetup(api_instance, batch_api, configs):
     for deployment, replicaCnt in configs.workflowDeplList.iteritems():
         # setup correct pod replica count for workflow deployments 
@@ -56,10 +68,10 @@ def clusterSetup(api_instance, batch_api, configs):
 
 
 
-def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="memory"):
+def load_yaml_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="stream"):
     import yaml 
     body = None
-    if jobType == "memory" or "":
+    if jobType == "stream" or "":
         with open('stream.yaml','r') as f:
             body = yaml.load(f) 
             pprint(body)

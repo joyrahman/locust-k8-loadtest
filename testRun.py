@@ -14,6 +14,7 @@ import json
 import csv
 import yaml
 from clusterConfig import clusterSetup
+from clusterConfig import deletebatchJobs 
 
 #TODO: Add ability to place interference pods on specific nodes in cluster
 #TODO: Add ability to scale different number of pods for each micro-service
@@ -37,7 +38,7 @@ class clusterInfo(object):
     interferenceZone = ""
     interferenceLvl = 0
     interferenceCompletionCount = 0
-    interferenceType = "memory"
+    interferenceType = "stream"
 
     
 def testDirInit(expName):
@@ -269,6 +270,10 @@ def main():
         
         # Once locust command finishes, get end timestamp
         stopT = time.time()
+
+        # delete the batch jobs 
+        deletebatchJobs(batch_v1beta1,clusterConfs)
+
         moveLocustResults(testDirPath)
         # TODO: Exec kubectl port forward to prometheus pod ?? (currently, command is being run in separate terminal window)
         
