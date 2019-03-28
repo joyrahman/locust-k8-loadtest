@@ -76,7 +76,7 @@ def main():
         #post_process_outfile
         output_file = os.path.join(output_dir,"{}_vmfile.csv".format(vm))
         input_file = os.path.join(output_dir,"{}_vmfile.tmp".format(vm))
-        printf("debug: process_vmstat {} {} {} {}".format(input_file,start_position,end_position,output_file))
+        print("debug: process_vmstat {} {} {} {}".format(input_file,start_position,end_position,output_file))
         process_vmstat(input_file,start_position,end_position, output_file)
     #call the post processing here
 
