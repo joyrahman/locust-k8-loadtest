@@ -199,6 +199,7 @@ def main():
     #kubernetes setup
     config.load_kube_config()
     extensions_v1beta1 = client.ExtensionsV1beta1Api()
+    batch_v1beta1 = client.BatchV1Api()
     clusterConfs = clusterInfo()
    
    # -------- Main testing loop Start ----------
@@ -225,7 +226,7 @@ def main():
         
         # setup cluster using input params
         print("Configuring cluster to match experiment input\n")
-        clusterSetup(extensions_v1beta1, clusterConfs)
+        clusterSetup(extensions_v1beta1, batch_v1beta1,clusterConfs)
         print("5 second grace period\n")
         time.sleep(20)
 
