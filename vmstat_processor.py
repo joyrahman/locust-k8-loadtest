@@ -21,6 +21,7 @@ def process_vmstat(vmfile,start_pos,end_pos,out_file):
         count = 0
         #escape = 0
         for line in f1:
+            print("debug:{}".format(line))
 
             if ("procs" in line) or ("swpd" in line):
                 pass
