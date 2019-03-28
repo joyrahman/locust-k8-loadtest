@@ -8,8 +8,7 @@ from pssh.utils import enable_logger, logger
 from gevent import joinall
 import time
 import os
-#from vmstat_sftp import copy_remote_to_local
-
+from vmstat_processor import process_vmstat
 import paramiko
 paramiko.util.log_to_file('/tmp/paramiko.log')
 paramiko.util.load_host_keys(os.path.expanduser('~/.ssh/known_hosts'))
@@ -35,52 +34,12 @@ def copy_remote_to_local(host,infile,outfile,local_path):
 
 
 
-
-def process_vmstat():
-    vmfile = sys.argv[1]
-    start_pos = int(sys.argv[2])
-    end_pos = int(sys.argv[3])
-    out_file = sys.argv[4]
-    averaging_factor = end_pos - start_pos
-
-    #containers = {'carts':0,'carts-db':0,'front-end':0,'orders':0}
-    containers = {}
-    dictionary = {}
-    hostname = vmfile.split(_)[0] #kb-w12
-    vm_cpu_average=0
-
-    # do processing of the vmstat file
-
-    f_out = open(out_file,'a')
-
-    with open(vmfile,'r') as f1:
-        #field12 for user cpu
-        vm_cpu_sum = 0
-        count = 0
-        #escape = 0
-        for line in f1:
-
-            if ("procs" in line) or ("swpd" in line):
-                pass
-            else:
-                if count>=start_pos and count <= end_pos:
-                    vm_cpu_sum += int(line.split()[13])
-                count += 1
-        vm_cpu_average = vm_cpu_sum*1.0/averaging_factor
-
-    #write output to file
-    output_record="{}:{},".format(hostname,vm_cpu_average)
-    output_record = output_record.rstrip(',')
-    output_record += "\n"
-    f_out.write(output_record)
-    f_out.close()
-
-#from post_process_perfstat import post_process_perfstat
-
 def main():
     exp_name = sys.argv[1]
     total_duration = int(sys.argv[2])
     output_dir = sys.argv[3]
+    start_position = int(sys.argv[4])
+    end_position = int(sys.argv[5])
     interval=5
     cpu_frequency = total_duration //5
     user="cloudsys"
@@ -114,6 +73,9 @@ def main():
         outfile_name = "{}_vmfile.tmp".format(vm)
         print("trying to copy: {} {} {}".format(vm,infile_name,outfile_name,output_dir))
         copy_remote_to_local(vm,infile_name, outfile_name, output_dir)
+        #post_process_outfile
+        post_process_outfile = "{}_vmfile.csv".format(vm)
+        process_vmstat(outfile_name,start_position,end_position, post_process_outfile)
     #call the post processing here
 
 

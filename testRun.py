@@ -249,7 +249,7 @@ def main():
             p1 = subprocess.call(perfstatArgs, stdout=perfstat_f, stderr=perfstat_f, shell=False)
         
         # Exec vmstat using params passed
-        vmstatCmdString = "python vmstat_driver.py {} {} {}".format(exp_Nm,runtime,testDirPath)
+        vmstatCmdString = "python vmstat_driver.py {} {} {} {} {}".format(exp_Nm,runtime,testDirPath,start_po,end_po)
 
         vmstatArgs = shlex.split(vmstatCmdString)
         vmstatResultFNm = testDirPath + "/vmstatLog.txt"

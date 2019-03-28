@@ -1,10 +1,8 @@
-def process_vmstat():
-    vmfile = sys.argv[1]
-    start_pos = int(sys.argv[2])
-    end_pos = int(sys.argv[3])
-    out_file = sys.argv[4]
+#usage: 
+# python vmstat_processor.py <inputfile> <start_pos> <end_pos> <outfile>
+def process_vmstat(vmfile,start_pos,end_pos,out_file):
     averaging_factor = end_pos - start_pos
-
+    
     #containers = {'carts':0,'carts-db':0,'front-end':0,'orders':0}
     containers = {}
     dictionary = {}
@@ -36,3 +34,11 @@ def process_vmstat():
     output_record += "\n"
     f_out.write(output_record)
     f_out.close()
+
+
+if __name__ == "__main__":
+    vmfile = sys.argv[1]  #input file name
+    start_pos = int(sys.argv[2]) #start position
+    end_pos = int(sys.argv[3]) #end position
+    out_file = sys.argv[4] #output file name
+
