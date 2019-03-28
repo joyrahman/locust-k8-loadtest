@@ -1,4 +1,4 @@
-#format: python <script.py> exp_name total_duration output_dir
+#format: python <script.py> exp_name total_duration output_dir start_position end_position
 
 #from pssh.clients import ParallelSSHClient
 from pprint import pprint

@@ -1,3 +1,5 @@
+import os
+import sys
 #usage: 
 # python vmstat_processor.py <inputfile> <start_pos> <end_pos> <outfile>
 def process_vmstat(vmfile,start_pos,end_pos,out_file):
