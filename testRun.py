@@ -269,6 +269,7 @@ def main():
         
         # Once locust command finishes, get end timestamp
         stopT = time.time()
+        print ("[debug] test is completed. post processing")
 
         # delete the batch jobs 
         deletebatchJobs(batch_v1beta1,clusterConfs)
@@ -277,9 +278,12 @@ def main():
         # TODO: Exec kubectl port forward to prometheus pod ?? (currently, command is being run in separate terminal window)
         
         # Exec Prometheus API query(s) to gather metrics & build resulting csv files
+        
         promQueries(startT, stopT, testDirPath)
         
         time.sleep(60)
+
+        print ("[debug] End of Test")
         #
 
 main()
