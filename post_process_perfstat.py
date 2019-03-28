@@ -27,8 +27,12 @@ def post_process_perfstat(filename):
                 break
             # keep reading 3 lines at a time
             record = []
+            
             for line in lines_gen:
-                record.append(line.split(',')[1])
+                try:
+                    record.append(line.split(',')[1])
+                except:
+                    pass
             
             record.append(hostname) 
             print record
