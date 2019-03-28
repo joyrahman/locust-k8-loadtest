@@ -18,6 +18,8 @@ def clean_up_file(infile):
             if "started" in line:
                 pass
             elif not line.strip():
+                pass
+            else:    
                 f_out.write(line)
     os.rename(outfile,infile)
 
