@@ -45,12 +45,11 @@ def clusterSetup(api_instance, batch_api, configs):
 
     # TODO: place interference deployment in correct zone w/ correct count
     namespace=configs.testNS 
-    include_uninitialized = True # bool | If true, partially initialized resources are included in the response. (optional)
-    pretty = 'pretty_example' # str | If 'true', then the output is pretty printed. (optional)
-    dry_run = 'dry_run_example' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
+    pretty = 'true' # str | If 'true', then the output is pretty printed. (optional)
+    
     body = load_yaml_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
     try: 
-        api_response = batch_api.create_namespaced_job(namespace=namespace, body=body, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
+        api_response = batch_api.create_namespaced_job(namespace=namespace, body=body, pretty=pretty)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
