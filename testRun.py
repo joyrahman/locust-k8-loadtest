@@ -211,8 +211,8 @@ def main():
             continue
         exp_Nm = lnArgs[0]
         runtime = lnArgs[1]
-        clientCnt = lnArgs[2]
-        hatchRate = lnArgs[3]
+        clientCnt = lnArgs[3]
+        hatchRate = lnArgs[2]
         clusterConfs.interferenceZone = lnArgs[4]
         clusterConfs.interferenceLvl = lnArgs[5]
         clusterConfs.workflowDeplList['cart'] = lnArgs[6]
@@ -280,6 +280,8 @@ def main():
         # Exec Prometheus API query(s) to gather metrics & build resulting csv files
         promQueries(startT, stopT, testDirPath)
         
+        time.sleep(60)
+        #
 
 main()
 

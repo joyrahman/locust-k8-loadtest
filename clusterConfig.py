@@ -58,13 +58,13 @@ def clusterSetup(api_instance, batch_api, configs):
     # TODO: place interference deployment in correct zone w/ correct count
     namespace=configs.testNS 
     pretty = 'true' # str | If 'true', then the output is pretty printed. (optional)
-    
-    body = load_yaml_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
-    try: 
-        api_response = batch_api.create_namespaced_job(namespace=namespace, body=body, pretty=pretty)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
+    if configs.interferenceLvl > 0:
+        body = load_yaml_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
+        try: 
+            api_response = batch_api.create_namespaced_job(namespace=namespace, body=body, pretty=pretty)
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
 
 
 
