@@ -44,5 +44,5 @@ if __name__ == "__main__":
     start_pos = int(sys.argv[2]) #start position
     end_pos = int(sys.argv[3]) #end position
     out_file = sys.argv[4] #output file name
-    main(vmfile,start_pos,end_pos,out_file)
+    process_vmstat(vmfile,start_pos,end_pos,out_file)
 
