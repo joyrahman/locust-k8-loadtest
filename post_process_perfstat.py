@@ -29,6 +29,8 @@ def post_process_perfstat(filename):
             record = []
             
             for line in lines_gen:
+                if "started" in line:
+                    continue
                 try:
                     record.append(line.split(',')[1])
                 except:
