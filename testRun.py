@@ -36,6 +36,8 @@ class clusterInfo(object):
     iFerenceDepNm = ""
     interferenceZone = ""
     interferenceLvl = 0
+    interferenceCompletionCount = 0
+    interferenceType = "memory"
 
     
 def testDirInit(expName):

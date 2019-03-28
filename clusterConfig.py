@@ -43,7 +43,45 @@ def clusterSetup(api_instance, configs):
             print("Exception when calling AppsV1Api->read_namespaced_deployment: %s\n" % e)
 
     # TODO: place interference deployment in correct zone w/ correct count
+    namespace=configs.testNS 
+    include_uninitialized = true # bool | If true, partially initialized resources are included in the response. (optional)
+    pretty = 'pretty_example' # str | If 'true', then the output is pretty printed. (optional)
+    dry_run = 'dry_run_example' # str | When present, indicates that modifications should not be persisted. An invalid or unrecognized dryRun directive will result in an error response and no further processing of the request. Valid values are: - All: all dry run stages will be processed (optional)
+    body = create_batch_job_spec(10,configs.interferenceLvl,configs.interferenceZone, configs.interferenceType)
+    try: 
+        api_response = api_instance.create_namespaced_job(namespace, body, include_uninitialized=include_uninitialized, pretty=pretty, dry_run=dry_run)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling BatchV1Api->create_namespaced_job: %s\n" % e)
+
+
+
+
     
+def create_batch_job_spec(cntCompletions=10,cntParallelism=2,zone="red",jobType="memory"):
+    body = client.V1Job() # V1Job | 
+    body.kind = "Job"
+    body.spec.parallelism = cntParallelism
+    body.spec.completions = cntCompletions
+    #TODO: Remove ""
+    if joyType=="" or jobType=="memory":
+        body.metadata.name  = "stream"
+        body.spec.template.metdata.name = "stream-pod"
+        body.spec.template.spec.containers.name = "stream-container"
+        body.spec.template.spec.containers.image = "joyrahman/stream3:v8"
+    
+    zoneSelector = dict()
+    #TODO: remove zone null check
+    if zone is None:
+        zone == "red"
+    zoneSelector['color'] = zone
+    body.spec.template.spec.node_selector = zoneSelector
+
+    return body
+
+
+
+
 
     
 
