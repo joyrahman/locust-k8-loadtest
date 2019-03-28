@@ -74,7 +74,7 @@ def main():
         print("trying to copy: {} {} {}".format(vm,infile_name,outfile_name,output_dir))
         copy_remote_to_local(vm,infile_name, outfile_name, output_dir)
         #post_process_outfile
-        post_process_outfile = "{}_vmfile.csv".format(vm)
+        post_process_outfile = os.path.join(output_dir,"{}_vmfile.csv".format(vm))
         process_vmstat(outfile_name,start_position,end_position, post_process_outfile)
     #call the post processing here
 

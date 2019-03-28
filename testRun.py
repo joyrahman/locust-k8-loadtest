@@ -244,7 +244,7 @@ def main():
         perfstatCmdString = "python perfstat_driver.py {} {} {}".format(exp_Nm,runtime,testDirPath)
 
         perfstatArgs = shlex.split(perfstatCmdString)
-        perfstatResultFNm = testDirPath + "/PerfstatLog.txt"
+        perfstatResultFNm = testDirPath + "/perfstatLog.txt"
         with open(perfstatResultFNm, 'w+') as perfstat_f:
             p1 = subprocess.call(perfstatArgs, stdout=perfstat_f, stderr=perfstat_f, shell=False)
         
