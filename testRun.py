@@ -14,6 +14,7 @@ import json
 import csv
 import yaml
 import datetime
+import ast 
 from clusterConfig import clusterSetup
 from clusterConfig import deletebatchJobs 
 
@@ -34,7 +35,7 @@ class podDataCollection(object):
 # TODO: move static config of this object to a conf file so it isn't hard coded    
 class clusterInfo(object):
     testNS = "default"
-    workflowDeplList = {"cart": 0, "shipping": 0, "catalogue": 0}
+    workflowDeplList = {"cart": 0, "catalogue": 0,"shipping":0, "payment":0,"ratings":0,"user":0,"web":0}
     interferenceZone = ""
     interferenceLvl = 0
     interferenceCompletionCount = 0
@@ -184,6 +185,16 @@ def promQueries(startTime, stopTime, testDirPath):
 
     createRawCSVs(timestampList, podNameList, testDirPath, podMetricsDict)
 
+
+def populateClusterConfig(clusterObject, configDict):
+    #workflowDeplList = {"cart": 0, "catalogue": 0,"shipping":0, "payment":0,"ratings":0,"user":0,"web":0}
+
+    for key in configDict:
+        clusterObject.workflowDeplList[key] = configDict[key]
+
+
+
+
 def main():
     #construct & parse args
     ap = argparse.ArgumentParser()
@@ -206,7 +217,7 @@ def main():
    
    # -------- Main testing loop Start ----------
     for line in open(args["file"]):
-        lnArgs = [x.strip() for x in line.split(',')]
+        lnArgs = [x.strip() for x in line.split('/')]
         if len(lnArgs) != 11: # change val to appropriate cnt later
             print("Skipping experiment %s, wrong number of args" % lnArgs[0])
             continue
@@ -216,11 +227,12 @@ def main():
         hatchRate = lnArgs[2]
         clusterConfs.interferenceZone = lnArgs[4]
         clusterConfs.interferenceLvl = int(lnArgs[5])
-        clusterConfs.workflowDeplList['cart'] = lnArgs[6]
-        clusterConfs.workflowDeplList['catalogue'] = lnArgs[7]
-        clusterConfs.workflowDeplList['shipping'] = lnArgs[8]
-        start_po = lnArgs[9]
-        end_po = lnArgs[10]
+        populateClusterConfig(clusterConfs, ast.literal_eval(lnArgs[6]))
+        #clusterConfs.workflowDeplList['cart'] = lnArgs[6]
+        #clusterConfs.workflowDeplList['catalogue'] = lnArgs[7]
+        #clusterConfs.workflowDeplList['shipping'] = lnArgs[8]
+        start_po = lnArgs[7]
+        end_po = lnArgs[8]
         # add more var defs here ^ if more args get added to lines (like node color interference is on)
         print("Current running experiment: %s\n" % exp_Nm)
         testDirPath = testDirInit(exp_Nm) #Create current test's directory
