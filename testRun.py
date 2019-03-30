@@ -217,8 +217,10 @@ def main():
    
    # -------- Main testing loop Start ----------
     for line in open(args["file"]):
+        if line.startswith("#"):
+            continue
         lnArgs = [x.strip() for x in line.split('/')]
-        if len(lnArgs) != 11: # change val to appropriate cnt later
+        if len(lnArgs) != 9: # change val to appropriate cnt later
             print("Skipping experiment %s, wrong number of args" % lnArgs[0])
             continue
         exp_Nm = lnArgs[0]
@@ -228,9 +230,6 @@ def main():
         clusterConfs.interferenceZone = lnArgs[4]
         clusterConfs.interferenceLvl = int(lnArgs[5])
         populateClusterConfig(clusterConfs, ast.literal_eval(lnArgs[6]))
-        #clusterConfs.workflowDeplList['cart'] = lnArgs[6]
-        #clusterConfs.workflowDeplList['catalogue'] = lnArgs[7]
-        #clusterConfs.workflowDeplList['shipping'] = lnArgs[8]
         start_po = lnArgs[7]
         end_po = lnArgs[8]
         # add more var defs here ^ if more args get added to lines (like node color interference is on)
