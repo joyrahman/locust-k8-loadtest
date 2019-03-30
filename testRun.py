@@ -220,9 +220,9 @@ def main():
         if line.startswith("#"):
             continue
         lnArgs = [x.strip() for x in line.split('/')]
-        if len(lnArgs) != 9: # change val to appropriate cnt later
-            print("Skipping experiment %s, wrong number of args" % lnArgs[0])
-            continue
+        # if len(lnArgs) != 9: # change val to appropriate cnt later
+        #     print("Skipping experiment %s, wrong number of args" % lnArgs[0])
+        #     continue
         exp_Nm = lnArgs[0]
         runtime = lnArgs[1]
         clientCnt = lnArgs[3]
