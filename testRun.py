@@ -251,16 +251,18 @@ def main():
         perfstatArgs = shlex.split(perfstatCmdString)
         perfstatResultFNm = testDirPath + "/perfstatLog.txt"
         with open(perfstatResultFNm, 'w+') as perfstat_f:
-            p1 = subprocess.call(perfstatArgs, stdout=perfstat_f, stderr=perfstat_f, shell=False)
+            p1 = subprocess.Popen(perfstatArgs, stdout=perfstat_f, stderr=perfstat_f, shell=False)
         
+        print("Started Perfstat")        
         # Exec vmstat using params passed
         vmstatCmdString = "python vmstat_driver.py {} {} {} {} {}".format(exp_Nm,runtime,testDirPath,start_po,end_po)
 
         vmstatArgs = shlex.split(vmstatCmdString)
         vmstatResultFNm = testDirPath + "/vmstatLog.txt"
         with open(vmstatResultFNm, 'w+') as vmstat_f:
-            p2 = subprocess.call(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
+            p2 = subprocess.Popen(vmstatArgs, stdout=vmstat_f, stderr=vmstat_f, shell=False)
 
+        print("Started VMStat")
         print("[debug] start time {}".format(datetime.datetime.now()))
 
         startT = time.time() 
@@ -280,7 +282,6 @@ def main():
             deletebatchJobs(batch_v1beta1,clusterConfs)
 
         moveLocustResults(testDirPath)
-        # TODO: Exec kubectl port forward to prometheus pod ?? (currently, command is being run in separate terminal window)
         
         # Exec Prometheus API query(s) to gather metrics & build resulting csv files
         
@@ -292,4 +293,5 @@ def main():
 
 
 main()
+
 
