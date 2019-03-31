@@ -69,7 +69,10 @@ if len(sys.argv) >1 :
 
 zones = ['red','green','blue']
 interference_level = [0,2,4]
-connections = [125,250,500,1000,2000,4000]
+connections  = []
+for i in range (25,525):
+    connections.append(i)
+#connections = [125,250,500,1000,2000,4000]
 #rate = max(connections)//4
 
 
