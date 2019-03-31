@@ -27,15 +27,15 @@ import hashlib
 duration = 300 #sec
 
 
-def getClusterConfiguration():
+def getClusterConfiguration(cntCart=1,cntCatalogue=1,cntShipping=1,cntPayment=1,cntRatings=1,cntUser=1,cntWeb=1):
     pods = {}
-    pods['cart'] = 1
-    pods['catalogue'] = 1
-    pods['shipping'] = 1
-    pods['payment'] = 1
-    pods['ratings'] = 1
-    pods['user'] = 1
-    pods['web'] = 1
+    pods['cart'] = cntCart
+    pods['catalogue'] = cntCatalogue
+    pods['shipping'] = cntShipping
+    pods['payment'] = cntPayment
+    pods['ratings'] = cntRatings
+    pods['user'] = cntUser
+    pods['web'] = cntWeb
 
 
     return pods
@@ -83,7 +83,10 @@ with open(output_file,'w' )as f:
 
                 today = date.today()
                 #config = "{}:{}:{}".format(cart_pod,catalogue_pod,shipping_pod)
+                
                 date_prefix = today.strftime("%b%d")
+
+                
                 configuration = getClusterConfiguration()
                 test_id = "{}_{}_{}_{}_{}".format(date_prefix,zone,con,i_level,getConfigHash(configuration) )
                 data = "{}/{}/{}/{}/{}/{}/{}/{}/{}\n".format(test_id,duration,rate,con,zone,i_level,configuration,start_position,end_position)
