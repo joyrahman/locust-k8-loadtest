@@ -298,7 +298,7 @@ def main():
         
         promQueries(startT, stopT, testDirPath)
         
-        additional_runtime = runtime - int(stopT-startT)
+        additional_runtime = int(runtime) - int(stopT-startT)
         print ("[debug] sleeping for additional {} sec".format(additional_runtime))
         time.sleep(additional_runtime)
         print("[debug] end time {}".format(datetime.datetime.now()))
