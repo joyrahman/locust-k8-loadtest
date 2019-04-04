@@ -27,9 +27,9 @@ class UserBehavior(TaskSet):
         uniqueid = user['uuid']
         print('User {}'.format(uniqueid))
 
-        self.client.get('/api/catalogue/categories')
+        self.client.get('/api/catalogue/categories',name="/api/catalogue/categories/")
         # all products in catalogue
-        products = self.client.get('/api/catalogue/products').json()
+        products = self.client.get('/api/catalogue/products',name="/api/catalogue/product/").json()
         for i in range(2):
             item = None
             while True:
@@ -41,13 +41,13 @@ class UserBehavior(TaskSet):
             if randint(1, 10) <= 3:
                 self.client.put('/api/ratings/api/rate/{}/{}'.format(item['sku'], randint(1, 5)))
 
-            self.client.get('/api/catalogue/product/{}'.format(item['sku']))
-            self.client.get('/api/ratings/api/fetch/{}'.format(item['sku']))
-            self.client.get('/api/cart/add/{}/{}/1'.format(uniqueid, item['sku']))
+            self.client.get('/api/catalogue/product/{}'.format(item['sku']),name="/api/catalogue/product/")
+            self.client.get('/api/ratings/api/fetch/{}'.format(item['sku']),name="/api/ratings")
+            self.client.get('/api/cart/add/{}/{}/1'.format(uniqueid, item['sku']),name="/api/cart/add")
 
-        cart = self.client.get('/api/cart/cart/{}'.format(uniqueid)).json()
+        cart = self.client.get('/api/cart/cart/{}'.format(uniqueid),name="/api/cart/cart").json()
         item = choice(cart['items'])
-        self.client.get('/api/cart/update/{}/{}/2'.format(uniqueid, item['sku']))
+        self.client.get('/api/cart/update/{}/{}/2'.format(uniqueid, item['sku']),name="/api/cart/update")
 
         # country codes
         code = choice(self.client.get('/api/shipping/codes').json())
