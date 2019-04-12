@@ -60,24 +60,34 @@ start_position = 5
 end_position = 35
 
 output_file = "default_test_case.csv"
-if len(sys.argv) >1 :
+
+if len(sys.argv) ==2:
+    output_file = sys.argv[1]
+elif len(sys.argv) >=4:
     output_file  = sys.argv[1] 
+    paramCntCart = int(sys.argv[2])
+    paramCntCat = int(sys.argv[3])
+    paramCntShipping = 1
 
-
+elif len(sys.argv) >=5:
+    output_file  = sys.argv[1] 
+    paramCntCart = int(sys.argv[2])
+    paramCntCat = int(sys.argv[3])
+    paramCntShipping = int(sys.argv[4])
 
 
 
 zones = ['red','green','blue']
 interference_level = [0,2,4]
 connections  = []
-for i in range(50,550,50):
+for i in range(5,40,10):
     connections.append(i)
 #connections = [125,250,500,1000,2000,4000]
 #rate = max(connections)//4
 
 
 # variables - zone, interference_level, connection
-with open(output_file,'w' )as f:
+with open(output_file,'a' )as f:
     f.write("#test_id/duration/rate/con/zone/i_level/{configuration}/start_position/end_position\n")
     for zone in zones:
         for i_level in interference_level:
@@ -90,7 +100,7 @@ with open(output_file,'w' )as f:
                 date_prefix = today.strftime("%b%d")
 
                 
-                configuration = getClusterConfiguration()
+                configuration = getClusterConfiguration(cntCart = paramCntCart, cntCatalogue = paramCntCat, cntShipping = paramCntShipping)
                 test_id = "{}_{}_{}_{}_{}".format(date_prefix,zone,con,i_level,getConfigHash(configuration) )
                 data = "{}/{}/{}/{}/{}/{}/{}/{}/{}\n".format(test_id,duration,rate,con,zone,i_level,configuration,start_position,end_position)
                 f.write(data)
